@@ -1,2 +1,2 @@
-# ceph-handbook
-This handbook is mainly used to guide the daily operation and maintenance of ChuTianyun.
+# 简介
+《Ceph运维手册》汇总了Ceph在使用中常见的运维和操作问题，主要用于指导楚天云运维人员的相关工作。本运维手册是基于Ubuntu操作系统。
