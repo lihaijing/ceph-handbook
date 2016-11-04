@@ -7,9 +7,4 @@
     * [1.3 监控 OSD 和 PG](operation/monitor_osd_pg/monitor_osd_pg.md)
         * [1.3.1 监控 OSD](operation/monitor_osd_pg/monitor_osd.md)
         * [1.3.2 C++](operation/monitor_osd_pg/monitor_pg.md)
-* [第二部分](chapter2/README.md)
-    * [2.1 算法](chapter2/algorithm/algorithm.md)
-    * [2.2 数据挖掘](chapter2/data_mining/data_mining.md)
-    * [2.3 机器学习](chapter2/learning/machine_learning.md)
-    * [2.4 搜索引擎](chapter2/search/search_engine.md)
 
