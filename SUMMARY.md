@@ -7,5 +7,5 @@
    * [1.3 监控 OSD 和 PG](operation/monitor_osd_pg/monitor_osd_pg.md)
        * [1.3.1 监控 OSD](operation/monitor_osd_pg/monitor_osd.md)
        * [1.3.2 监控 PG](operation/monitor_osd_pg/monitor_pg.md)
-   * [[1.4]](operation/user_management/usr_mgm.md)
+   * [1.4 用户管理](operation/user_management/usr_mgm.md)
 
