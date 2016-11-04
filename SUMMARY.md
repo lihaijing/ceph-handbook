@@ -18,4 +18,4 @@
    * [2.1 常见 MON 故障处理](./Troubleshooting/troubleshooting_mon.md)
    * [2.2 常见 OSD 故障处理](./Troubleshooting/troubleshooting_osd.md)
    * [2.3 常见 PG 故障处理](./Troubleshooting/troubleshooting_pg.md)
-   * [2.4 常见 Client 端故障处理](./Troubleshooting/troubleshooting_client.md)
+   * [2.4 常见 Client 端故障处理](./Troubleshooting/troubleshooting_client.md)
