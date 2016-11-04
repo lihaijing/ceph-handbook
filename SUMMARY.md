@@ -14,7 +14,7 @@
    * [1.10 修改 MON IP](Operation/modify_mon_ip.md)
    * [1.11 更换 OSD Journal](Operation/change_osd_journal.md)
    * [1.12 修改集群配置](Operation/change_cluster_conf.md)
-       * server_power.md
+   * [1.13 Ceph 节点服务器上下电](./Operation/server_power.md)
 * [第二部分：故障处理](Troubleshooting/troubleshooting.md)
    * [2.1 常见 MON 故障处理](Troubleshooting/troubleshooting_mon.md)
    * [2.2 常见 OSD 故障处理](Troubleshooting/troubleshooting_osd.md)
