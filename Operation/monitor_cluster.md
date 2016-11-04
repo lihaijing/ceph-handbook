@@ -54,6 +54,21 @@ Ceph 会打印各种事件。例如一个包括 3 个 Mon、和 33 个 OSD 的 C
 
 	ceph df
 
+得到的输出信息大致如下：
+
+    GLOBAL:
+        SIZE       AVAIL      RAW USED     %RAW USED 
+        84719G     83564G        1154G          1.36 
+	POOLS:
+        NAME                  ID     USED       %USED     MAX AVAIL     OBJECTS 
+    	rbd                   0           0         0        41381G           0 
+    	volumes               1        284G      0.34        41381G       57904 
+    	images                2        224G      0.27        41381G       39024 
+    	backups               3           0         0        41381G           1 
+    	vms                   4      28736M      0.03        41381G        4325 
+    	volumes-ssd           5      53758M      0.06        41381G       11854 
+    	fitos_backup_pool     7       1286M         0        41381G         354 
+
 输出的 **GLOBAL** 段展示了数据所占用集群存储空间的概要。
 
 - **SIZE：** 集群的总容量。
