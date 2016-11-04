@@ -6,5 +6,5 @@
     * [1.2 监控集群](operation/monitor_cluster/monitor_cluster.md)
     * [1.3 监控 OSD 和 PG](operation/monitor_osd_pg/monitor_osd_pg.md)
         * [1.3.1 监控 OSD](operation/monitor_osd_pg/monitor_osd.md)
-        * [1.3.2 C++](operation/monitor_osd_pg/monitor_pg.md)
+        * [1.3.2 监控 PG](operation/monitor_osd_pg/monitor_pg.md)
 
