@@ -25,4 +25,4 @@ OSD 监控的一个重要事情就是，当集群启动并运行时，所有 OSD
 	-4 0.01999     host ceph03                                   
 	 2 0.01999         osd.2      down  1.00000          1.00000
 
-如果有 OSD 处于 down 状态，请尝试启动该 OSD，启动命令见[1.1 操作集群](./operate_cluster.md)。
+如果有 OSD 处于 down 状态，请尝试启动该 OSD，启动命令见[1.1 操作集群](./operate_cluster.md)。如果启动失败，请参考[2.2 常见 OSD 故障处理](../Troubleshooting/troubleshooting_osd.md)中的相关部分进行处理。
