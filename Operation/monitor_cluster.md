@@ -2,6 +2,16 @@
 
 集群运行起来后，你可以用 `ceph` 工具来监控集群的状态，典型的监控项目包括检查 OSD 状态、monitor 的状态、PG 的状态和元数据服务器的状态（目前楚天云环境并没有部署元数据服务器）。
 
+### 交互模式
+
+要在交互模式下运行 `ceph` ，不要带参数运行 `ceph` ，例如：
+
+    ceph
+    ceph> health
+    ceph> status
+    ceph> quorum_status
+    ceph> mon_status
+    
 ### 检查集群的监控状况
 启动集群后、读写数据前，先检查下集群的健康状态。你可以用下面的命令检查：
 
@@ -85,3 +95,133 @@ Ceph 会打印各种事件。例如一个包括 3 个 Mon、和 33 个 OSD 的 C
 - **Objects：**各存储池内的大概对象数。
 
 注意： **POOLS** 段内的数字是估计值，它们不包含副本、快照或克隆。因此，各 Pool 的 **USED** 和 **%USED** 数量之和不会达到 **GLOBAL** 段中的 **RAW USED** 和 **%RAW USED** 数量。
+
+### 检查集群状态
+要检查集群的状态，执行下面的命令：
+
+    ceph status
+
+或者：
+
+    ceph -s
+
+在交互模式下，输入 `status` 然后按回车：
+
+    ceph> status
+
+Ceph 将打印集群状态，例如一个包括 1 个监视器、和 2 个 OSD 的小型 Ceph 集群可能打印：
+
+    cluster b370a29d-9287-4ca3-ab57-3d824f65e339
+     health HEALTH_OK
+     monmap e1: 1 mons at {ceph1=10.0.0.8:6789/0}, election epoch 2, quorum 0 ceph1
+     osdmap e63: 2 osds: 2 up, 2 in
+      pgmap v41332: 952 pgs, 20 pools, 17130 MB data, 2199 objects
+        	115 GB used, 167 GB / 297 GB avail
+                   1 active+clean+scrubbing+deep
+             	 951 active+clean
+
+### 检查 OSD 状态
+你可以执行下列命令来确定 OSD 状态为 `up` 且 `in` ：
+
+    ceph osd stat
+
+或者：
+
+    ceph osd dump
+
+你也可以根据 OSD 在 CRUSH MAP 里的位置来查看：
+
+    ceph osd tree
+
+Ceph 会打印 CRUSH 树，包括 host 的名称、它上面的 OSD 例程、状态及权重：
+
+	ID WEIGHT  TYPE NAME       UP/DOWN REWEIGHT PRIMARY-AFFINITY
+	-1 0.05997 root default                                      
+	-2 0.01999     host ceph01                                   
+ 	 0 0.01999         osd.0        up  1.00000          1.00000 
+	-3 0.01999     host ceph02                                   
+ 	 1 0.01999         osd.1        up  1.00000          1.00000 
+	-4 0.01999     host ceph03                                   
+ 	 2 0.01999         osd.2        up  1.00000          1.00000
+
+另请参考 [1.3 监控 OSD](./monitor_osd.md)。
+
+### 检查 Mon 状态
+
+如果集群中有多个 Mon（很可能），你启动集群后、读写数据前应该检查 Mon 法定人数状态。运行着多个 Mon 时必须形成法定人数，最好周期性地检查 Mon 状态来确定它们在运行。
+
+要查看 Mon map，执行下面的命令：
+
+    ceph mon stat
+
+或者：
+
+    ceph mon dump
+
+要检查监视器的法定人数状态，执行下面的命令：
+
+    ceph quorum_status
+
+Ceph 会返回法定人数状态，例如，包含 3 个监视器的 Ceph 集群可能返回下面的：
+
+    { "election_epoch": 94,
+      "quorum": [
+            0,
+            1,
+            2],
+      "quorum_names": [
+            "OPS-ceph1",
+            "OPS-ceph2",
+            "OPS-ceph3"],
+      "quorum_leader_name": "OPS-ceph1",
+      "monmap": { "epoch": 1,
+          "fsid": "b84b887e-9e0c-4211-8423-e0596939cd36",
+	  "modified": "2016-11-04 20:19:57.333655",
+	  "created": "2016-06-23 14:53:07.171558",
+	  "mons": [
+			{"rank": 0,
+			 "name": "OPS-ceph1",
+			 "addr": "192.168.219.30:6789\/0"
+		    {"rank": 1,
+			 "name": "OPS-ceph2",
+			 "addr": "192.168.219.31:6789\/0"},
+			{"rank": 2,
+			 "name": "OPS-ceph3",
+			 "addr":"192.168.219.32:6789\/0"}
+           ]
+       }
+    }
+
+### 检查 MDS 状态
+
+元数据服务器为 Ceph 文件系统提供元数据服务，不过楚天云当前并未部署 MDS 。元数据服务器有两种状态： `up | down` 和 `active | inactive` ，执行下面的命令查看元数据服务器状态为 `up` 且 `active` ：
+
+    ceph mds stat
+
+要展示元数据集群的详细状态，执行下面的命令：
+
+    ceph mds dump
+
+### 检查 PG 状态
+
+PG 把对象映射到 OSD 。监控 PG 时，我们希望它们的状态是 `active` 且 `clean` 。详情请参考 [1.4 监控 PG](./monitor_pg.md)
+
+### 使用管理套接字
+
+Ceph 管理套接字允许你通过套接字接口查询守护进程，它们默认存在于 `/var/run/ceph` 下。要通过管理套接字访问某个守护进程，先登录它所在的主机、再执行下列命令：
+
+    ceph daemon {daemon-name}
+    ceph daemon {path-to-socket-file}
+
+比如，这是下面这两种用法是等价的：
+
+    ceph daemon osd.0 foo
+    ceph daemon /var/run/ceph/ceph-osd.0.asok foo
+
+用下列命令查看可用的管理套接字命令：
+
+    ceph daemon {daemon-name} help
+
+管理套接字命令允许你在运行时查看和修改配置。
+
+另外，你可以在运行时直接修改配置选项（也就是说管理套接字会绕过 Mon，不要求你直接登录宿主主机，不像 `ceph {daemon-type} tell {id} injectargs` 会依赖监视器）。
