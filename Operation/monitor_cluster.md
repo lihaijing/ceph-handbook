@@ -136,13 +136,13 @@ Ceph 将打印集群状态，例如一个包括 1 个监视器、和 2 个 OSD �
 Ceph 会打印 CRUSH 树，包括 host 的名称、它上面的 OSD 例程、状态及权重：
 
 	ID WEIGHT  TYPE NAME       UP/DOWN REWEIGHT PRIMARY-AFFINITY
-	-1 0.05997 root default                                      
-	-2 0.01999     host ceph01                                   
- 	 0 0.01999         osd.0        up  1.00000          1.00000 
-	-3 0.01999     host ceph02                                   
- 	 1 0.01999         osd.1        up  1.00000          1.00000 
-	-4 0.01999     host ceph03                                   
- 	 2 0.01999         osd.2        up  1.00000          1.00000
+    -1 0.05997 root default
+    -2 0.01999     host ceph01
+     0 0.01999         osd.0        up  1.00000          1.00000
+    -3 0.01999     host ceph02
+     1 0.01999         osd.1        up  1.00000          1.00000
+    -4 0.01999     host ceph03
+     2 0.01999         osd.2        up  1.00000          1.00000
 
 另请参考 [1.3 监控 OSD](./monitor_osd.md)。
 
