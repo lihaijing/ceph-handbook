@@ -177,38 +177,80 @@ Ceph 会列出集群中的所有用户。例如，在一个只有 2 个 OSD 的�
 	sudo ceph auth import -i /etc/ceph/ceph.keyring
 
 ### 密钥管理
+当你通过客户端访问 Ceph 集群时，Ceph 客户端会使用本地的 keyring 文件。默认使用下列路径和名称的 keyring 文件：
 
+- `/etc/ceph/$cluster.$name.keyring`
+- `/etc/ceph/$cluster.keyring`
+- `/etc/ceph/keyring`
+- `/etc/ceph/keyring.bin`
+ 
+你也可以在 `ceph.conf` 中另行指定 keyring 的路径，但不推荐这样做。
+
+`$cluster` 元变量是你的 Ceph 集群名称，默认名称是 `ceph` 。`$name` 元变量是用户类型和 ID 。比如用户是 `client.admin`，那就得到 `ceph.client.admin.keyring` 。
+
+本小节介绍如何使用 `ceph-authtool` 工具来从客户端管理 keyring 。
 
 ##### 创建密钥
+创建一个空的 keyring 文件，使用 `--create-keyring` 或 `-C` 选项。比如：
 
+	ceph-authtool --create-keyring /path/to/keyring
+
+创建一个包含多个用户的 keyring 文件，推荐使用 `$cluster.keyring` 作为文件名，并存放于 `/etc/ceph` 目录下。这样就无需在本地的 `ceph.conf` 文件中指定 keyring 的路径了。
+
+	sudo ceph-authtool -C /etc/ceph/ceph.keyring
+
+创建仅包含一个用户的 keyring 文件时，建议使用集群名、用户类型和用户名称作为文件名，并存放于 `/etc/ceph` 目录下。
 
 ##### 给密钥文件中增加用户
+为了获取某个用户的 keyring 文件，可以使用 `ceph auth get` 命令加 `-o` 选项，以 keyring 文件格式来保存输出。比如：
 
+	sudo ceph auth get client.admin -o /etc/ceph/ceph.client.admin.keyring
+
+当你想要向 keyring 文件中导入某个用户时，可以使用 ceph-authtool 来指定目的和源 keyring 文件。比如：
+
+	sudo ceph-authtool /etc/ceph/ceph.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
 
 ##### 创建用户
+可以在 Ceph 客户端直接创建用户、密钥和能力。然后再导入 Ceph 集群。比如：
 
+	sudo ceph-authtool -n client.ringo --cap osd 'allow rwx' --cap mon 'allow rwx' /etc/ceph/ceph.keyring
 
-##### 修改用户
+创建 keyring 文件、增加用户也可以同时进行。比如：
 
+	sudo ceph-authtool -C /etc/ceph/ceph.keyring -n client.ringo --cap osd 'allow rwx' --cap mon 'allow rwx' --gen-key
+
+上述步骤中，新用户 client.ringo 仅存在于 keyring 文件中，还需要把新用户加入到 Ceph 集群中。
+
+	sudo ceph auth add client.ringo -i /etc/ceph/ceph.keyring
+
+##### 修改用户能力
+修改记录在 keyring 文件中的用户能力时，需要指定 keyring 、用户和新的能力选项。比如：
+
+	sudo ceph-authtool /etc/ceph/ceph.keyring -n client.ringo --cap osd 'allow rwx' --cap mon 'allow rwx'
+
+更新 Ceph 存储集群的用户，你必须更新 keyring 文件中对应用户入口的信息。
+
+	sudo ceph auth import -i /etc/ceph/ceph.keyring
 
 ### 命令行使用方法
+Ceph 支持通过下列方式使用用户名称和密钥。
 
 `--id | --user`
 
-**描述：**
+**描述：** Ceph 通过类型和 ID 来确定用户，如 `TYPE.ID` 或 `client.admin`, `client.user1` 。使用 `--id` 或 `--user` 选项指定用户的 ID，比如，指定使用 `client.foo` 用户：
 
 	ceph --id foo --keyring /path/to/keyring health
 	ceph --user foo --keyring /path/to/keyring health
 
 `--name | -n`
 
-**描述：**
+**描述：** 使用 --name 或 -n 选项指定用户的全名（ TYPE.ID ），比如：
 
 	ceph --name client.foo --keyring /path/to/keyring health
 	ceph -n client.foo --keyring /path/to/keyring health
 
 `--keyring`
 
-**描述：**
+**描述：** 指定包含一个或多个用户及其密钥的 keyring 文件路径。 `--secret` 选项提供同样的功能，但对 Ceph RADOS Gateway 不生效（ `--secret` 选项有其他的作用）。比如：
 
 	sudo rbd map --id foo --keyring /path/to/keyring mypool/myimage
