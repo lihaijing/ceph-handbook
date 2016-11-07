@@ -29,6 +29,21 @@
 
 	ceph-mon -i {mon-id} --public-addr {ip:port}
 
+### 增加 Monitor（ ceph-deploy ）
+
+还可以通过 `ceph-deploy` 工具很方便地增加 MON。
+
+1、登入 `ceph-deploy` 工具所在的 Ceph admin 节点，进入工作目录。
+
+	ssh {ceph-deploy-node}
+	cd /path/ceph-deploy-work-path
+
+2、执行下列命令，新增 Monitor：
+
+	ceph-deploy mon create {host-name [host-name]...}
+
+**注意：** 在某一主机上新增 Mon 时，如果它不是由 `ceph-deploy new` 命令所定义的，那就必须把 `public network` 加入 `ceph.conf` 配置文件。
+
 ### 删除 Monitor（手动）
 
 当你想要删除一个 mon 时，需要考虑删除后剩余的 mon 个数是否能够达到法定人数。
@@ -81,3 +96,11 @@
 7、确认 monitor 是否达到法定人数（ `ceph -s` ）。
 
 8、你可能需要把已删除的 monitor 的数据目录 `/var/lib/ceph/mon` 归档到一个安全的位置。或者，如果你确定剩下的 monitor 是健康的且数量足够，也可以直接删除数据目录。
+
+### 删除 Monitor（ ceph-deploy ）
+
+如果你想删除集群中的某个 Mon ，可以用 `destroy` 选项。
+
+	ceph-deploy mon destroy {host-name [host-name]...}
+
+**注意：** 确保你删除某个 Mon 后，其余 Mon 仍能达成一致。如果不可能，删除它之前可能需要先增加一个。
