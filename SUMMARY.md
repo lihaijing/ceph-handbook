@@ -10,7 +10,7 @@
    * [1.6 增加/删除 Monitor](Operation/add_rm_mon.md)
    * [1.7 增加/删除 OSD](Operation/add_rm_osd.md)
    * [1.8 操作 Pool](Operation/operate_pool.md)
-   * [1.9 修改 Crushmap](Operation/modify_crushmap.md)
+   * [1.9 管理 Crushmap](Operation/manage_crushmap.md)
    * [1.10 修改 MON IP](Operation/modify_mon_ip.md)
    * [1.11 更换 OSD Journal](Operation/change_osd_journal.md)
    * [1.12 修改集群配置](Operation/change_cluster_conf.md)
