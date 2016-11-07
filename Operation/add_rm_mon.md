@@ -99,7 +99,12 @@
 
 ### 删除 Monitor（ ceph-deploy ）
 
-如果你想删除集群中的某个 Mon ，可以用 `destroy` 选项。
+1、登入 `ceph-deploy` 工具所在的 Ceph admin 节点，进入工作目录。
+
+	ssh {ceph-deploy-node}
+	cd /path/ceph-deploy-work-path
+
+2、如果你想删除集群中的某个 Mon ，可以用 `destroy` 选项。
 
 	ceph-deploy mon destroy {host-name [host-name]...}
 
