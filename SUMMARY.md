@@ -19,7 +19,7 @@
    * [2.3 常见 PG 故障处理](Troubleshooting/troubleshooting_pg.md)
    * [2.4 常见 Client 端故障处理](Troubleshooting/troubleshooting_client.md)
 * [第三部分：Ceph 进阶](Advance_usage/advanced_usage.md)
-   * [3.1 pg_num 和 pgp_num 的区别](Advance_usage/pg_pgp_num.md)
+   * [3.1 PG 和 PGP 的区别](Advance_usage/pg_pgp.md)
    * [3.2 Monitor 的备份和恢复](Advance_usage/mon_backup.md)
    * [3.3 修改 Cinder/Glance 进程的最大可用 FD](Advance_usage/change_fd.md)
    * [3.4 更换 OSD Journal](Advance_usage/change_osd_journal.md)
