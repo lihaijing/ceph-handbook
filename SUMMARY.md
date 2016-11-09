@@ -13,6 +13,7 @@
    * [1.9 管理 Crushmap](Operation/manage_crushmap.md)
    * [1.10 修改 MON IP](Operation/modify_mon_ip.md)
    * [1.11 修改集群配置](Operation/change_cluster_conf.md)
+   * [1.12 日志和调试](Operation/log_debug.md)
 * [第二部分：故障处理](Troubleshooting/troubleshooting.md)
    * [2.1 常见 MON 故障处理](Troubleshooting/troubleshooting_mon.md)
    * [2.2 常见 OSD 故障处理](Troubleshooting/troubleshooting_osd.md)
