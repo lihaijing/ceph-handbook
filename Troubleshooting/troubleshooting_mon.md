@@ -271,6 +271,15 @@ Ceph monitor 把集群的各种 map 信息存放在 key/value 数据库中，如
 - **pg 的设置**：通过 `ceph pg set_full_ratio` 和 `ceph pg set_nearfull_ratio` 命令设置的 `full ratio` 和 `nearfull ratio` 值会丢失。  
 - **MDS Maps**：MDS maps 会丢失。
 
+#### 磁盘空间不足导致 MON DOWN
+
+当 monitor 进程检测到本地可用磁盘空间不足时，会停止 monitor 服务。Monitor 的日志中应该会有类似如下信息的输出：
+
+	2016-09-01 16:45:54.994488 7fb1cac09700  0 mon.jyceph01@0(leader).data_health(62) update_stats avail 5% total 297 GB, used 264 GB, avail 18107 MB
+	2016-09-01 16:45:54.994747 7fb1cac09700 -1 mon.jyceph01@0(leader).data_health(62) reached critical levels of available space on local monitor storage -- shutdown!
+
+清理本地磁盘，增大可用空间，重启 monitor 进程，即可恢复正常。
+
 #### 通过 Mon 数据库的备份恢复
 
 具体请参考 [3.2 Monitor 的备份和恢复](../Advance_usage/mon_bakcup.md) 。
