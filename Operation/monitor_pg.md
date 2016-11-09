@@ -24,7 +24,7 @@ Ceph 靠 **Up Set** 处理客户端请求，它们是实际处理读写请求的
 
 写入数据前，PG 必须处于 `active` 、而且**应该**是 `clean` 状态。假设某存储池的 PG 有 3 副本，为让 Ceph 确定 PG 的当前状态，PG 的主 OSD （即 acting set 内的第一个 OSD ）会与第二和第三 OSD 建立连接、并就 PG 的当前状态达成一致意见。
 
-![](../images/osd_peering.png)
+![](http://i.imgur.com/2uOjQIu.png)
 
 OSD 们也向 Mon 报告自己的状态。要排除节点互联的问题，请参考[2.3 常见 PG 故障处理](../Troubleshooting/troubleshooting_pg.md)中的相关部分进行处理。
 
