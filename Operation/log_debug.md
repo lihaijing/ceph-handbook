@@ -105,46 +105,7 @@
 	#for example
 	debug mds log = 1/20
 
-下表列出了 Ceph 子系统及其默认日志和内存级别。一旦你完成调试，应该恢复默认值，或一个适合平常运营的级别。
-
-	子系统	日志级别	内存日志级别  
-	default	0	5
-	lockdep	0	5
-	context	0	5
-	crush	1	5
-	mds	1	5
-	mds balancer	1	5
-	mds locker	1	5
-	mds log	1	5
-	mds log expire	1	5
-	mds migrator	1	5
-	buffer	0	0
-	timer	0	5
-	filer	0	5
-	objecter	0	0
-	rados	0	5
-	rbd	0	5
-	journaler	0	5
-	objectcacher	0	5
-	client	0	5
-	osd	0	5
-	optracker	0	5
-	objclass	0	5
-	filestore	1	5
-	journal	1	5
-	ms	0	5
-	mon	1	5
-	monc	0	5
-	paxos	0	5
-	tp	0	5
-	auth	1	5
-	finisher	1	5
-	heartbeatmap	1	5
-	perfcounter	1	5
-	rgw	1	5
-	javaclient	1	5
-	asok	1	5
-	throttle	1	5
+Ceph 子系统及其默认日志和内存级别具体见 [ SUBSYSTEM, LOG AND DEBUG SETTINGS ](http://docs.ceph.com/docs/master/rados/troubleshooting/log-and-debug/#subsystem-log-and-debug-settings) 。一旦你完成调试，应该恢复默认值，或一个适合平常运营的级别。
 
 #### 日志记录选项
 
