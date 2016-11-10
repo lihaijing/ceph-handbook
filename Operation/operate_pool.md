@@ -42,6 +42,8 @@
 - `[erasure-code-profile=profile]`：仅用于**纠删**存储池。指定纠删码配置文件，此配置必须已由 `osd erasure-code-profile set` 定义。
 - `[expected-num-objects]`：为这个存储池预估的对象数。设置此值（要同时把 **filestore merge threshold** 设置为负数）后，在创建存储池时就会拆分 PG 文件夹，以免运行时拆分文件夹导致延时增大。
 
+关于如何计算合适的 `pg_num` 值，可以使用 Ceph 官方提供的一个计算工具 [**pgcalc**](http://ceph.com/pgcalc/) 。
+
 ### 设置存储池配额
 
 存储池配额可设置最大字节数、和/或每个存储池最大对象数。
