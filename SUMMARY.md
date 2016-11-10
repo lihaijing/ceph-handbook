@@ -28,4 +28,5 @@
    * [3.7 查看 RBD 镜像的位置](Advance_usage/find_rbd_data_loc.md)
    * [3.8 查看 RBD 镜像的实际大小](Advance_usage/rbd_real_size.md)
    * [3.9 统计 OSD 上 PG 的数量](Advance_usage/cal_pg_per_osd.md)
+   * [3.10 查看使用 RBD 镜像的客户端](Advance_usage/list_rbd_watcher.md)
 
