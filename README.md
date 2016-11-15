@@ -15,6 +15,15 @@
 lihaijing@fiberhome.com
 
 
-## 本书源码地址
+## 本书 GitBook 地址
+
+点击下面的地址进行在线阅读：
+
+[https://lihaijing.gitbooks.io/ceph-handbook/content](https://lihaijing.gitbooks.io/ceph-handbook/content)
+
+
+## 本书 GitHub 地址
+
+本书源文件托管在 GitHub 上，欢迎大家 Fork 本项目：
 
 [https://github.com/lihaijing/ceph-handbook](https://github.com/lihaijing/ceph-handbook)
