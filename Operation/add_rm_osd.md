@@ -42,6 +42,10 @@
 
 	ceph osd crush add {id-or-name} {weight} [{bucket-type}={bucket-name} ...]
 
+比如：
+
+	ceph osd crush add 21 0.08800 pool=ssd_root rack=ssd_rack01 host=ssd_ceph4
+
 你也可以反编译 CRUSH Map、把 OSD 加入设备列表、以 bucket 的形式加入主机（如果它没在 CRUSH Map 里）、以条目形式把设备加入主机、分配权重、重编译并应用它，详情参见 [1.9 修改 Crushmap](./modify_crushmap.md) 。
 
 7、启动 OSD。把 OSD 加入 Ceph 后， OSD 就在配置里了。然而它还没运行，它现在的状态为 `down & out` 。你必须先启动 OSD 它才能收数据。在 Ubuntu 上执行：
