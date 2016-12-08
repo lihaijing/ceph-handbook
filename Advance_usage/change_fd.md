@@ -34,7 +34,7 @@
     debug librbd = 20
     debug objectcacher = 20
 
-然后增加 cinder-volume 进程删卷时的打开文件数成功复现该问题。RDB client 日志中报 `too many open files` 异常，后在楚天云环境上通过复现问题和打开 RDB Client 日志观察到同样的异常，因此可以确定是由于扩容后 OSD 节点增多，RDB client 删除卷时需要和所有 OSD 建立 socket 链接，这样就会超过目前环境中 cinder-volume 进程允许打开的文件数，导致异常发生，进入挂死状态。
+然后增加 cinder-volume 进程删卷时的打开文件数成功复现该问题。RDB client 日志中报 `too many open files` 异常，后在生产环境上通过复现问题和打开 RDB Client 日志观察到同样的异常，因此可以确定是由于扩容后 OSD 节点增多，RDB client 删除卷时需要和所有 OSD 建立 socket 链接，这样就会超过目前环境中 cinder-volume 进程允许打开的文件数，导致异常发生，进入挂死状态。
 
 	2016-09-26 20:08:48.953810 7f099566b700 -1 -- 192.168.219.2:0/43062437 >> 192.168.219.130:6812/12006 pipe(0x7f0acdcdc090 sd=-1 :0 s=1 pgs=0 cs=0 l=1 c=0x7f0acdcae7e0).connect couldn't created socket (24) Too many open files
 	2016-09-26 20:08:48.953803 7f099556a700 -1 -- 192.168.219.2:0/43062437 >> 192.168.219.113:6802/2740 pipe(0x7f0acdce0330 sd=-1 :0 s=1 pgs=0 cs=0 l=1 c=0x7f0acdcb2210).connect couldn't created socket (24) Too many open files
@@ -44,7 +44,7 @@
 
 ### 解决方案
 
-由于问题原因是才 cinder-volume 允许打开的文件数没有随着 Ceph 集群的扩容做相应的调整，因此解决方案是要调整 cinder-volume 进程的允许打开文件数，目前调整为 `65535`（根据测试，发现每个删卷请求要建立大约 1000 多个链接，因此调整为 `65535` 后可以支持并发删除约 60 个 RDB 卷，后续版本会考虑基于性能基线，进行接口并发操作数量的限制，防止无限制的并发删卷导致文件打开数过大）。
+由于问题原因是 cinder-volume 允许打开的文件数没有随着 Ceph 集群的扩容做相应的调整，因此解决方案是要调整 cinder-volume 进程的允许打开文件数，目前调整为 `65535`（根据测试，发现每个删卷请求要建立大约 1000 多个链接，因此调整为 `65535` 后可以支持并发删除约 60 个 RDB 卷，后续版本会考虑基于性能基线，进行接口并发操作数量的限制，防止无限制的并发删卷导致文件打开数过大）。
 
 1、cinder-volume 进程被封装成了 Ubuntu 上的 upstart 任务。修改 cinder-volume 进程启动配置文件 `/etc/init/cinder-volume.conf` ，增加一行配置：
 
