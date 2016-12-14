@@ -18,6 +18,8 @@
    * [2.1 常见 MON 故障处理](Troubleshooting/troubleshooting_mon.md)
    * [2.2 常见 OSD 故障处理](Troubleshooting/troubleshooting_osd.md)
    * [2.3 常见 PG 故障处理](Troubleshooting/troubleshooting_pg.md)
+   * [2.4 全局Ceph节点宕机处理 ](Troubleshooting/troubleshooting_lost_power.md)
+   * [2.5 单个Ceph节点宕机处理 ](Troubleshooting/troubleshooting_single_lost_power.md)
 * [第三部分：Ceph 进阶](Advance_usage/advanced_usage.md)
    * [3.1 PG 和 PGP 的区别](Advance_usage/pg_pgp.md)
    * [3.2 Monitor 的备份和恢复](Advance_usage/mon_backup.md)
