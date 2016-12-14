@@ -10,27 +10,27 @@
 
 3. 确认 NTP 服务及系统时间已同步，命令如下：
 
-   `# ps-ef |grep ntp`
+   `# ps-ef | grep ntp`
 
    `# date`
 
-   `# ntpq-p`
+   `# ntpq -p`
 
 4. 登入上电之ceph server确认ceph service已正常运行，命令如下：
 
-   `ps -ef |grep ceph`
+   `ps -ef | grep ceph`
 
 5. 登入集群monitor server查看状态，OSD全都up 集群仍为`noout flag(s) set`
 
    `# ceph -s`
 
-   `# cephosd tree`
+   `# ceph osd tree`
 
 6. 登入monitor server解除`stopping w/out rebalancing`，命令如下：
 
-   `# cephosd unset noout`
+   `# ceph osd unset noout`
 
-   `# ceph-w`
+   `# ceph -w`
 
    使用 ceph-w可查看集群运作输出，同步完毕后集群health应为`HEALTH_OK` 状态。
 
