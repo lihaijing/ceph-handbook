@@ -6,8 +6,11 @@
 
 
 ## 环境
-本手册是基于 Ubuntu 操作系统， Ceph Hammer 版。
 
+本手册是基于以下两种环境：
+
+- Ubuntu 14.04， Ceph Hammer 版。
+- CentOS 7.2， Ceph Jewel版。
 
 ## 作者
 
