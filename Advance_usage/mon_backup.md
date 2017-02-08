@@ -1,4 +1,6 @@
-# 3.2 Monitor 的备份和恢复
+# 2. Monitor 的备份和恢复
+
+----------
 
 本篇内容来自 [徐小胖'blog —— monitor 的增删改备](http://xuxiaopang.com/2016/10/26/exp-monitor-operation/) 
 
@@ -6,7 +8,7 @@
 
 每个 MON 的数据都是保存在数据库内的，这个数据库位于 `/var/lib/ceph/mon/$cluster-$hostname/store.db` ，这里的 `$cluster` 是集群的名字， `$hostname` 为主机名，MON 的所有数据即目录 `/var/lib/ceph/mon/$cluster-$hostname/` ，备份好这个目录之后，就可以在任一主机上恢复 MON 了。
 
-这里参考了下[这篇文章](https://blog.widodh.nl/2014/03/safely-backing-up-your-ceph-monitors/)里面的备份方法，简单讲基本思路就是，停止一个 MON，然后将这个 MON 的数据库压缩保存到其他路径，再开启 MON。文中提到了之所以要停止 MON 是要保证 levelDB 数据库的完整性。然后可以做个定时任务一天或者一周备份一次。
+这里参考了下 [这篇文章](https://blog.widodh.nl/2014/03/safely-backing-up-your-ceph-monitors/) 里面的备份方法，简单讲基本思路就是，停止一个 MON，然后将这个 MON 的数据库压缩保存到其他路径，再开启 MON。文中提到了之所以要停止 MON 是要保证 levelDB 数据库的完整性。然后可以做个定时任务一天或者一周备份一次。
 
 另外最好把 `/etc/ceph/` 目录也备份一下。
 

@@ -1,4 +1,6 @@
-# 3.6 PG 卡在 active + remapped 状态
+# 6. PG 卡在 active + remapped 状态
+
+----------
 
 ### 问题现象
 
@@ -39,7 +41,7 @@ Hammer 版本下这个参数默认为：
 
 >     tunable chooseleaf_vary_r 0
 
-修改 Crush Map 的方法请参考 [1.9 管理 Crushmap](./Operation/manage_crushmap.md) 。
+修改 Crush Map 的方法请参考本手册第一部分 [9. 管理 Crushmap](./Operation/manage_crushmap.md) 。
 
 或者，直接修改 `crush tunables` 的值为 `optimal` 。
 

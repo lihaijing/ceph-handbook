@@ -1,4 +1,6 @@
-# 3.1 PG 和 PG 的区别
+# 1. PG 和 PGP 的区别
+
+----------
 
 本篇内容来自 [zphj1987 —— Ceph 中 PG 和 PGP 的区别](http://www.zphj1987.com/2016/10/19/Ceph%E4%B8%ADPG%E5%92%8CPGP%E7%9A%84%E5%8C%BA%E5%88%AB/)
 

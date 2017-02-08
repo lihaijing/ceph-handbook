@@ -1,4 +1,6 @@
-# 1.9 管理 Crushmap
+# 9. 管理 Crushmap
+
+----------
 
 CRUSH 算法通过计算数据存储位置来确定如何存储和检索。 CRUSH 授权 Ceph 客户端直接连接 OSD ，而非通过一个中央服务器或代理。数据存储、检索算法的使用，使 Ceph 避免了单点故障、性能瓶颈、和伸缩的物理限制。
 
@@ -8,7 +10,7 @@ CRUSH 需要一张集群的 Map，且使用 CRUSH Map 把数据伪随机地、�
 
 	osd crush update on start = false
 
-### 1.9.1 编辑 CRUSH Map
+### 9.1 编辑 CRUSH Map
 
 要编辑现有的 CRUSH Map：
 
@@ -18,7 +20,7 @@ CRUSH 需要一张集群的 Map，且使用 CRUSH Map 把数据伪随机地、�
 4. 重编译 CRUSH Map；
 5. 注入 CRUSH Map。
 
-要激活 CRUSH Map 里某存储池的规则，找到通用规则集编号，然后把它指定到那个规则集。详情参见 [1.8 操作 Pool](./operate_pool.md) 中调整存储池选项值部分。
+要激活 CRUSH Map 里某存储池的规则，找到通用规则集编号，然后把它指定到那个规则集。详情参见本手册第一部分 [8. 操作 Pool](./operate_pool.md) 中调整存储池选项值部分。
 
 ##### 获取 CRUSH Map
 
@@ -52,7 +54,7 @@ Ceph 将把已编译的 CRUSH Map 保存到你指定的文件。
 
 Ceph 将把你指定的已编译 CRUSH Map 注入到集群。
 
-### 1.9.2 CRUSH Map 参数
+### 9.2 CRUSH Map 参数
 
 CRUSH Map 主要有 4 个段落。
 
@@ -181,7 +183,7 @@ CRUSH Map 支持“ CRUSH 规则”的概念，用以确定一个存储池里数
 - `step chooseleaf firstn {num} type {bucket-type}`：选择 `{bucket-type}` 类型的桶集合，并从各桶的子树里选择一个叶子节点。桶集合的数量通常是存储池的副本数（即 pool size ）。如果 `{num} == 0` ，选择 `pool-num-replicas` 个桶（所有可用的）；如果 `{num} > 0 && < pool-num-replicas` ，就选择那么多的桶；如果 `{num} < 0` ，它意味着选择 `pool-num-replicas - {num}` 个桶。
 - `step emit`：输出当前值并清空堆栈。通常用于规则末尾，也适用于相同规则应用到不同树的情况。
 
-### 1.9.3 主亲和性
+### 9.3 主亲和性
 
 某个 Ceph 客户端读写数据时，总是连接 acting set 里的主 OSD （如 `[2, 3, 4]` 中， `osd.2` 是主的）。有时候某个 OSD 与其它的相比并不适合做主 OSD （比如其硬盘慢、或控制器慢）。最大化硬件利用率时为防止性能瓶颈（特别是读操作），你可以调整 OSD 的主亲和性，这样 CRUSH 就尽量不把它用作 acting set 里的主 OSD 了。
 
@@ -189,37 +191,37 @@ CRUSH Map 支持“ CRUSH 规则”的概念，用以确定一个存储池里数
 
 主亲和性默认为 `1` （就是说此 OSD 可作为主 OSD ）。此值合法范围为 `0-1` ，其中 `0` 意为此 OSD 不能用作主的， `1` 意为 OSD 可用作主的。此权重 `< 1` 时， CRUSH 选择主 OSD 时选中它的可能性就较低。
 
-### 1.9.4 增加/移动 OSD
+### 9.4 增加/移动 OSD
 
 要增加或移动在线集群里 OSD 所对应的 CRUSH Map 条目，执行 ceph osd crush set 命令。
 
 	ceph osd crush set {id-or-name} {weight} {bucket-type}={bucket-name} [{bucket-type}={bucket-name} ...]
 
-### 1.9.5 调整 OSD 的 CRUSH 权重
+### 9.5 调整 OSD 的 CRUSH 权重
 
 要调整在线集群中某个 OSD 的 CRUSH 权重，执行命令：
 
 	ceph osd crush reweight {name} {weight}
 
-### 1.9.6 删除 OSD
+### 9.6 删除 OSD
 
 要从在线集群里把某个 OSD 彻底踢出 CRUSH Map，或仅踢出某个指定位置的 OSD，执行命令：
 
 	ceph osd crush remove {name} {<ancestor>}
 
-### 1.9.7 增加桶
+### 9.7 增加桶
 
 要在运行集群的 CRUSH Map 中新建一个桶，用 ceph osd crush add-bucket 命令：
 
 	ceph osd crush add-bucket {bucket-name} {bucket-type}
 
-### 1.9.8 移动桶
+### 9.8 移动桶
 
 要把一个桶移动到 CRUSH Map 里的不同位置，执行命令：
 
 	ceph osd crush move {bucket-name} {bucket-type}={bucket-name} [{bucket-type}={bucket-name} ...]
 
-### 1.9.9 删除桶
+### 9.9 删除桶
 
 要把一个桶从 CRUSH Map 的分级结构中删除，可用此命令：
 
@@ -228,7 +230,7 @@ CRUSH Map 支持“ CRUSH 规则”的概念，用以确定一个存储池里数
 注意：从 CRUSH 分级结构里删除时必须是空桶。
 
 
-### 1.9.10 可调选项
+### 9.10 可调选项
 
 从 v0.74 起，如果 CRUSH 可调选项不是最优值（ v0.73 版里的默认值） Ceph 就会发出健康告警，有两种方法可消除这些告警：
 
@@ -248,7 +250,7 @@ CRUSH Map 支持“ CRUSH 规则”的概念，用以确定一个存储池里数
 
 	ceph tell mon.\* injectargs --no-mon-warn-on-legacy-crush-tunables
 
-### 1.9.11 CRUSH Map 实例
+### 9.11 CRUSH Map 实例
 
 假设你想让大多数存储池映射到使用大容量硬盘的 OSD 上，但是其中一些存储池映射到使用高速 SSD 的 OSD 上。在同一个 CRUSH Map 内有多个独立的 CRUSH 层级结构是可能的，定义两棵树、分别有自己的根节点 —— 一个用于机械硬盘（如 root platter ）、一个用于 SSD （如 root ssd ），具体的 CRUSH Map 内容如下：
 

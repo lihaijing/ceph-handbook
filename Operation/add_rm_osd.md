@@ -1,8 +1,10 @@
-# 1.7 增加/删除 OSD
+# 7. 增加/删除 OSD
+
+----------
 
 如果您的集群已经在运行，你可以在运行时添加或删除 OSD 。
 
-### 1.7.1 增加 OSD（手动）
+### 7.1 增加 OSD（手动）
 
 要增加一个 OSD，要依次创建数据目录、把硬盘挂载到数据目录、把 OSD 加入集群、然后把它加入 CRUSH Map。
 
@@ -46,7 +48,7 @@
 
 	ceph osd crush add 21 0.08800 pool=ssd_root rack=ssd_rack01 host=ssd_ceph4
 
-你也可以反编译 CRUSH Map、把 OSD 加入设备列表、以 bucket 的形式加入主机（如果它没在 CRUSH Map 里）、以条目形式把设备加入主机、分配权重、重编译并应用它，详情参见 [1.9 修改 Crushmap](./modify_crushmap.md) 。
+你也可以反编译 CRUSH Map、把 OSD 加入设备列表、以 bucket 的形式加入主机（如果它没在 CRUSH Map 里）、以条目形式把设备加入主机、分配权重、重编译并应用它，详情参见本手册第一部分 [9. 修改 Crushmap](./modify_crushmap.md) 。
 
 7、启动 OSD。把 OSD 加入 Ceph 后， OSD 就在配置里了。然而它还没运行，它现在的状态为 `down & out` 。你必须先启动 OSD 它才能收数据。在 Ubuntu 上执行：
 
@@ -54,7 +56,7 @@
 
 一旦你启动了 OSD ，其状态就变成了 `up & in` 。
 
-### 1.7.2 增加 OSD（ ceph-deploy ）
+### 7.2 增加 OSD（ ceph-deploy ）
 
 还可以通过 `ceph-deploy` 工具很方便的增加 OSD。
 
@@ -98,7 +100,7 @@
 
 `activate` 命令会让 OSD 进入 `up` 且 `in` 状态。该命令使用的分区路径是前面 `prepare` 命令创建的。
 
-### 1.7.3 删除 OSD（手动）
+### 7.3 删除 OSD（手动）
 
 要想缩减集群尺寸或替换硬件，可在运行时删除 OSD 。在 Ceph 里，一个 OSD 通常是一台主机上的一个 `ceph-osd` 守护进程、它运行在一个硬盘之上。如果一台主机上有多个数据盘，你得逐个删除其对应 `ceph-osd` 。通常，操作前应该检查集群容量，看是否快达到上限了，确保删除 OSD 后不会使集群达到 `near full` 比率。
 
@@ -115,7 +117,7 @@
 
 执行完这一步后，会触发数据的恢复过程。此时应该等待数据恢复结束，集群恢复到 `HEALTH_OK` 状态，再进行下一步操作。
 
-3、删除 CRUSH Map 中的对应 OSD 条目，它就不再接收数据了。你也可以反编译 CRUSH Map、删除 device 列表条目、删除对应的 host 桶条目或删除 host 桶（如果它在 CRUSH Map 里，而且你想删除主机），重编译 CRUSH Map 并应用它。详情参见 [1.9 修改 Crushmap](./modify_crushmap.md) 。
+3、删除 CRUSH Map 中的对应 OSD 条目，它就不再接收数据了。你也可以反编译 CRUSH Map、删除 device 列表条目、删除对应的 host 桶条目或删除 host 桶（如果它在 CRUSH Map 里，而且你想删除主机），重编译 CRUSH Map 并应用它。详情参见本手册第一部分 [9. 修改 Crushmap](./modify_crushmap.md) 。
 
 	ceph osd crush remove {name}
 

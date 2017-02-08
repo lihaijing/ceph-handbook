@@ -1,4 +1,6 @@
-# 3.4 更换 OSD Journal
+# 4. 更换 OSD Journal
+
+----------
 
 本篇中部分内容来自 [zphj1987 —— 如何替换 Ceph 的 Journal](http://www.zphj1987.com/2016/07/26/如何替换Ceph的Journal/)
 

@@ -1,4 +1,6 @@
-# 1.3 监控 OSD
+# 3. 监控 OSD
+
+----------
 
 某 OSD 的状态可以是在集群内（ `in` ）或集群外（ `out` ）、也可以是运行着的（ `up` ）或不在运行的（ `down` ）。如果一个 OSD 处于 `up` 状态，它也可以是在集群之内 `in` （你可以读写数据）或者之外 `out` 。如果它以前是 `in` 但最近 `out` 了， Ceph 会把 PG 迁移到其他 OSD 上。如果某个 OSD `out` 了， CRUSH 就不会再分配 PG 给它。如果它 `down` 了，其状态也应该是 `out` 。默认在 OSD `down` 掉 300s 后会标记它为 `out` 状态。
 
@@ -25,4 +27,4 @@ OSD 监控的一个重要事情就是，当集群启动并运行时，所有 OSD
 	-4 0.01999     host ceph03                                   
 	 2 0.01999         osd.2      down  1.00000          1.00000
 
-如果有 OSD 处于 down 状态，请尝试启动该 OSD，启动命令见[1.1 操作集群](./operate_cluster.md)。如果启动失败，请参考[2.2 常见 OSD 故障处理](../Troubleshooting/troubleshooting_osd.md)中的相关部分进行处理。
+如果有 OSD 处于 down 状态，请尝试启动该 OSD，启动命令见本手册第一部分 [1. 操作集群](./operate_cluster.md)。如果启动失败，请参考本手册第二部分 [2. 常见 OSD 故障处理](../Troubleshooting/troubleshooting_osd.md) 中的相关部分进行处理。

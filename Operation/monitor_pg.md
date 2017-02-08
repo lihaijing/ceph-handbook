@@ -1,4 +1,4 @@
-# 1.4 监控 PG
+# 4. 监控 PG
 
 CRUSH 算法把 PG 分配到 OSD 时，它会根据存储池的副本数设置，把 PG 分配到不同的 OSD 上。比如，如果存储池设置为 3 副本， CRUSH 可能把它们分别分配到 `osd.1` 、`osd.2` 、`osd.3` 。考虑到 CRUSH Map 中设定的故障域，实际上 CRUSH 找出的是伪随机位置，所以在大型集群中，很少能看到 PG 被分配到了相邻的 OSD 。我们把涉及某个特定 PG 副本的一组 OSD 称为 **acting set** 。在某些情况下，位于 acting set 中的一个 OSD `down` 了或者不能为 PG 内的对象提供服务，这些情形发生时无需惊慌，常见原因如下：
 
@@ -20,15 +20,15 @@ Ceph 靠 **Up Set** 处理客户端请求，它们是实际处理读写请求的
 
 	osdmap e1196 pg 0.2d (0.2d) -> up [13,30] acting [13,30]
 
-### 1.4.1 节点互联
+### 4.1 节点互联
 
 写入数据前，PG 必须处于 `active` 、而且**应该**是 `clean` 状态。假设某存储池的 PG 有 3 副本，为让 Ceph 确定 PG 的当前状态，PG 的主 OSD （即 acting set 内的第一个 OSD ）会与第二和第三 OSD 建立连接、并就 PG 的当前状态达成一致意见。
 
 ![](http://i.imgur.com/2uOjQIu.png)
 
-OSD 们也向 Mon 报告自己的状态。要排除节点互联的问题，请参考[2.3 常见 PG 故障处理](../Troubleshooting/troubleshooting_pg.md)中的相关部分进行处理。
+OSD 们也向 Mon 报告自己的状态。要排除节点互联的问题，请参考本手册第二部分 [3. 常见 PG 故障处理](../Troubleshooting/troubleshooting_pg.md) 中的相关部分进行处理。
 
-### 1.4.2 监控 PG 状态
+### 4.2 监控 PG 状态
 如果你执行了 `ceph health` 、 `ceph -s` 、或 `ceph -w` 命令，你也许注意到了集群并非总返回 `HEALTH_OK` 。检查完 OSD 是否在运行后，你还应该检查 PG 的状态。你应该明白，在 PG 建立连接时集群**不会**返回 `HEALTH_OK` ：
 
 - 刚刚创建了一个存储池，PG 还没达成一致。
@@ -141,7 +141,7 @@ Ceph 会输出成 JSON 格式。
 	    "agent_state": {}
 	}
 
-### 1.4.3 找出故障 PG
+### 4.3 找出故障 PG
 
 如前所述，一个 PG 状态不是 `active+clean` 时未必有问题。一般来说，PG 卡住时 Ceph 的自修复功能可能会不起作用，卡住的状态细分为：
 
@@ -153,9 +153,9 @@ Ceph 会输出成 JSON 格式。
 
     ceph pg dump_stuck [unclean|inactive|stale|undersized|degraded]
 
-关于排除卡住的 PG 见请参考[2.3 常见 PG 故障处理](../Troubleshooting/troubleshooting_pg.md)中的相关部分进行处理。
+关于排除卡住的 PG 见请参考本手册第二部分 [3. 常见 PG 故障处理](../Troubleshooting/troubleshooting_pg.md) 中的相关部分进行处理。
 
-### 1.4.4 定位对象位置
+### 4.4 定位对象位置
 
 要把对象数据存入 Ceph 对象存储， Ceph 客户端必须：
 

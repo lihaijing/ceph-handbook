@@ -1,4 +1,6 @@
-# 3.8 查看 RBD 镜像的实际大小
+# 8. 查看 RBD 镜像的实际大小
+
+----------
 
 本篇内容来自 [zphj1987 —— 如何统计 Ceph 的 RBD 真实使用容量](http://www.zphj1987.com/2016/09/08/%E5%A6%82%E4%BD%95%E7%BB%9F%E8%AE%A1Ceph%E7%9A%84RBD%E7%9C%9F%E5%AE%9E%E4%BD%BF%E7%94%A8%E5%AE%B9%E9%87%8F/)
 
@@ -12,7 +14,17 @@ Ceph 的 rbd 一直有个问题就是无法清楚的知道这个分配的空间�
 
 ### 方法一：使用 rbd du 查询
 
-此命令是 Jewel 版本才支持，此处暂不做讨论。
+此命令在 Jewel 版中可用。
+
+	root@mon:~# rbd du rbd/mysql-img
+	NAME PROVISIONED USED 
+	test       52.8047M    0
+
+不过需要注意，执行此命令要求开启 rbd image 的如下属性：  
+
+	layering, exclusive-lock, object-map, fast-diff
+
+具体使用可参考 [这篇文章](http://www.zphj1987.com/2016/03/24/ceph查询rbd的使用容量（快速）/) 。
 
 ### 方法二：使用 rbd diff
 

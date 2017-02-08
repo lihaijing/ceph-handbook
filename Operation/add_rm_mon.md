@@ -1,8 +1,10 @@
-# 1.6 增加/删除 Monitor
+# 6. 增加/删除 Monitor
+
+----------
 
 一个集群可以只有一个 monitor，我们推荐生产环境至少部署 3 个。 Ceph 使用 Paxos 算法的一个变种对各种 map 、以及其它对集群来说至关重要的信息达成共识。建议（但不是强制）部署奇数个 monitor 。Ceph 需要 mon 中的大多数在运行并能够互相通信，比如单个 mon，或 2 个中的 2 个，3 个中的 2 个，4 个中的 3 个等。初始部署时，建议部署 3 个 monitor。后续如果要增加，请一次增加 2 个。
 
-### 1.6.1 增加 Monitor（手动）
+### 6.1 增加 Monitor（手动）
 
 1、在目标节点上，新建 mon 的默认目录。`{mon-id}` 一般取为节点的 hostname 。
 
@@ -29,7 +31,7 @@
 
 	ceph-mon -i {mon-id} --public-addr {ip:port}
 
-### 1.6.2 增加 Monitor（ ceph-deploy ）
+### 6.2 增加 Monitor（ ceph-deploy ）
 
 还可以通过 `ceph-deploy` 工具很方便地增加 MON。
 
@@ -44,7 +46,7 @@
 
 **注意：** 在某一主机上新增 Mon 时，如果它不是由 `ceph-deploy new` 命令所定义的，那就必须把 `public network` 加入 `ceph.conf` 配置文件。
 
-### 1.6.3 删除 Monitor（手动）
+### 6.3 删除 Monitor（手动）
 
 当你想要删除一个 mon 时，需要考虑删除后剩余的 mon 个数是否能够达到法定人数。
 
@@ -58,7 +60,7 @@
 
 3、从 ceph.conf 中移除 mon 的入口部分（如果有）。
 
-### 1.6.4 删除 Monitor（从不健康的集群中）
+### 6.4 删除 Monitor（从不健康的集群中）
 
 本小节介绍了如何从一个不健康的集群（比如集群中的 monitor 无法达成法定人数）中删除 `ceph-mon` 守护进程。
 
@@ -97,7 +99,7 @@
 
 8、你可能需要把已删除的 monitor 的数据目录 `/var/lib/ceph/mon` 归档到一个安全的位置。或者，如果你确定剩下的 monitor 是健康的且数量足够，也可以直接删除数据目录。
 
-### 1.6.5 删除 Monitor（ ceph-deploy ）
+### 6.5 删除 Monitor（ ceph-deploy ）
 
 1、登入 `ceph-deploy` 工具所在的 Ceph admin 节点，进入工作目录。
 
