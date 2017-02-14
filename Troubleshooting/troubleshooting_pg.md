@@ -34,7 +34,7 @@
 
 #### CRUSH MAP 错误
 
-PG 达不到 clean 状态的另一个可能的原因就是集群的 CRUSN Map 有错误，导致 PG 不能映射到正确的地方。
+PG 达不到 clean 状态的另一个可能的原因就是集群的 CRUSH Map 有错误，导致 PG 不能映射到正确的地方。
 
 ### 3.2 卡住的 PGs
 
