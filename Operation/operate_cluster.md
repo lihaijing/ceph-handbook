@@ -13,7 +13,7 @@
 
 要启动某一 Ceph 节点上的所有守护进程，用下列命令：
 
-	sudo stop ceph-all
+	sudo start ceph-all
 
 ### 1.1.3 停止所有守护进程
 
