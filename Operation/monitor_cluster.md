@@ -162,41 +162,50 @@ Ceph 会打印 CRUSH 树，包括 host 的名称、它上面的 OSD 例程、状
 
 要检查监视器的法定人数状态，执行下面的命令：
 
-    ceph quorum_status
+    ceph quorum_status -f json-pretty
 
 Ceph 会返回法定人数状态，例如，包含 3 个监视器的 Ceph 集群可能返回下面的：
 
-    { "election_epoch": 94,
+    { 
+      "election_epoch": 94,
       "quorum": [
             0,
             1,
-            2],
+            2
+      ],
       "quorum_names": [
             "OPS-ceph1",
             "OPS-ceph2",
-            "OPS-ceph3"],
+            "OPS-ceph3"
+      ],
       "quorum_leader_name": "OPS-ceph1",
       "monmap": { "epoch": 1,
           "fsid": "b84b887e-9e0c-4211-8423-e0596939cd36",
-	  "modified": "2016-11-04 20:19:57.333655",
-	  "created": "2016-06-23 14:53:07.171558",
-	  "mons": [
-			{"rank": 0,
-			 "name": "OPS-ceph1",
-			 "addr": "192.168.219.30:6789\/0"
-		    {"rank": 1,
-			 "name": "OPS-ceph2",
-			 "addr": "192.168.219.31:6789\/0"},
-			{"rank": 2,
-			 "name": "OPS-ceph3",
-			 "addr":"192.168.219.32:6789\/0"}
+	      "modified": "2016-11-04 20:19:57.333655",
+	      "created": "2016-06-23 14:53:07.171558",
+	      "mons": [
+			  {
+                  "rank": 0,
+			      "name": "OPS-ceph1",
+			      "addr": "192.168.219.30:6789\/0"
+              },
+		      {
+                  "rank": 1,
+			      "name": "OPS-ceph2",
+			      "addr": "192.168.219.31:6789\/0"
+              },
+			  {
+                  "rank": 2,
+			      "name": "OPS-ceph3",
+			      "addr":"192.168.219.32:6789\/0"
+              }
            ]
        }
     }
 
 ### 2.8 检查 MDS 状态
 
-元数据服务器为 Ceph 文件系统提供元数据服务，不过楚天云当前并未部署 MDS 。元数据服务器有两种状态： `up | down` 和 `active | inactive` ，执行下面的命令查看元数据服务器状态为 `up` 且 `active` ：
+元数据服务器为 Ceph 文件系统提供元数据服务，不过在当前生产环境中并未部署 MDS 。元数据服务器有两种状态： `up | down` 和 `active | inactive` ，执行下面的命令查看元数据服务器状态为 `up` 且 `active` ：
 
     ceph mds stat
 
